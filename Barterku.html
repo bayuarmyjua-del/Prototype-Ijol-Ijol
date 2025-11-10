@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ijol-Ijol - Bertukar Tanpa Beban</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2e7d32; /* Hijau utama */
+            --primary-light: #4caf50; /* Hijau muda */
+            --primary-dark: #1b5e20; /* Hijau gelap */
+            --secondary: #ff9800; /* Oranye untuk aksen */
+            --accent: #8bc34a; /* Hijau kekuningan */
+            --light: #f1f8e9; /* Hijau sangat muda */
+            --dark: #263238; /* Abu-abu gelap */
+            --gray: #78909c; /* Abu-abu */
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links i {
+            margin-right: 5px;
+        }
+        
+        .notification-badge {
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        
+        /* Category Section */
+        .categories {
+            padding: 40px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-light);
+        }
+        
+        .category-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Items Section */
+        .items {
+            padding: 40px 0;
+        }
+        
+        .items-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .item-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .item-image {
+            height: 180px;
+            background-color: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 3rem;
+        }
+        
+        .item-content {
+            padding: 15px;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .item-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .item-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .item-owner {
+            display: flex;
+            align-items: center;
+        }
+        
+        .owner-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            margin-right: 5px;
+        }
+        
+        .item-category {
+            background-color: var(--light);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: var(--primary-dark);
+        }
+        
+        .item-price {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .item-barter {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: 60px 0;
+            background-color: white;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .step-card {
+            text-align: center;
+            padding: 25px;
+            border-radius: var(--radius);
+            background-color: var(--light);
+            transition: transform 0.3s;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+        }
+        
+        .step-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 60px 0;
+            background-color: var(--light);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            color: var(--primary-dark);
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            color: rgba(46, 125, 50, 0.1);
+        }
+        
+        /* Auth Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray);
+            border-bottom: 2px solid transparent;
+        }
+        
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .form-submit:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .auth-switch a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* Product Detail Modal */
+        .product-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .product-detail-modal.active {
+            display: flex;
+        }
+        
+        .product-detail-content {
+            background-color: white;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        .product-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .product-detail-title {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+        
+        .product-detail-category {
+            background-color: var(--light);
+            color: var(--primary-dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+        
+        .product-detail-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .product-detail-image {
+            height: 300px;
+            background-color: #f3f4f6;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 4rem;
+        }
+        
+        .product-detail-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .product-detail-description {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .product-detail-meta {
+            background-color: var(--light);
+            padding: 15px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+        }
+        
+        .product-detail-meta-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .product-detail-meta-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .product-detail-meta-label {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
+        .product-detail-owner {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .product-detail-owner-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .product-detail-owner-info h4 {
+            margin-bottom: 5px;
+            color: var(--primary-dark);
+        }
+        
+        .product-detail-owner-info p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .product-detail-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-primary i {
+            margin-right: 8px;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e68900;
+        }
+        
+        .btn-secondary i {
+            margin-right: 8px;
+        }
+        
+        .barter-options {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: var(--radius);
+        }
+        
+        .barter-options h4 {
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
+        
+        .barter-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .barter-item:last-child {
+            border-bottom: none;
+        }
+        
+        .barter-item-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-light);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary-light);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: var(--white);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .items-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .filter-buttons {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+            
+            .product-detail-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-detail-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-exchange-alt"></i>
+                    Ijol-Ijol
+                </div>
+                
+                <ul class="nav-links">
+                    <li><a href="#"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a href="#"><i class="fas fa-th-large"></i> Kategori</a></li>
+                    <li><a href="#" onclick="openModal()"><i class="fas fa-plus-circle"></i> Jual</a></li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-bell"></i> Notifikasi
+                            <span class="notification-badge">3</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="user-menu">
+                    <div class="user-avatar">P</div>
+                    <span>Petani</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Ijol-Ijol - Bertukar Tanpa Beban</h1>
+            <p>Platform barter online untuk hasil panen pertanian, perikanan, dan perabotan rumah tangga</p>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Cari barang yang ingin ditukar..." onkeyup="searchProducts(event)">
+                <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Kategori Produk</h2>
+            
+            <div class="category-grid">
+                <div class="category-card" onclick="filterByCategory('Pertanian')">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Pertanian</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Perikanan')">
+                    <i class="fas fa-fish"></i>
+                    <h3>Perikanan</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Alat Tanam')">
+                    <i class="fas fa-tools"></i>
+                    <h3>Alat Tanam</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Rumah Tangga')">
+                    <i class="fas fa-home"></i>
+                    <h3>Rumah Tangga</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Hasil Bumi')">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Hasil Bumi</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Buah-buahan')">
+                    <i class="fas fa-apple-alt"></i>
+                    <h3>Buah-buahan</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Sayuran')">
+                    <i class="fas fa-carrot"></i>
+                    <h3>Sayuran</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Lainnya')">
+                    <i class="fas fa-ellipsis-h"></i>
+                    <h3>Lainnya</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Items Section -->
+    <section class="items">
+        <div class="container">
+            <div class="items-header">
+                <h2 class="section-title" id="itemsTitle">Produk Unggulan</h2>
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="resetFilter()">Semua</button>
+                    <button class="filter-btn" onclick="filterByCategory('Pertanian')">Pertanian</button>
+                    <button class="filter-btn" onclick="filterByCategory('Perikanan')">Perikanan</button>
+                    <button class="filter-btn" onclick="filterByCategory('Alat Tanam')">Alat Tanam</button>
+                </div>
+            </div>
+            
+            <div class="items-grid" id="itemsGrid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+            
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>Tidak ada produk ditemukan</h3>
+                <p>Coba kata kunci lain atau kategori yang berbeda</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Cara Kerja Ijol-Ijol</h2>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3 class="step-title">Daftar Akun</h3>
+                    <p>Buat akun gratis untuk mulai menggunakan platform Ijol-Ijol</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3 class="step-title">Upload Produk</h3>
+                    <p>Ambil foto dan deskripsi produk yang ingin ditukar atau dijual</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3 class="step-title">Tawar Barter</h3>
+                    <p>Tawarkan barang Anda atau uang tunai untuk produk yang diinginkan</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="step-title">Kesepakatan</h3>
+                    <p>Temukan kesepakatan dan lakukan transaksi dengan aman</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Apa Kata Mereka</h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p class="testimonial-text">Saya bisa menukar hasil panen saya dengan alat pertanian yang saya butuhkan. Sangat membantu sekali!</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">P</div>
+                        <div class="author-info">
+                            <h4>Pak Budi</h4>
+                            <p>Petani</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p class="testimonial-text">Hasil tangkapan ikan saya laku dan bisa ditukar dengan kebutuhan rumah tangga. Praktis!</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">I</div>
+                        <div class="author-info">
+                            <h4>Ibu Siti</h4>
+                            <p>Penjual Ikan</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p class="testimonial-text">Saya tidak perlu khawatir dengan uang tunai, bisa langsung tukar dengan produk yang saya butuhkan.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div class="author-info">
+                            <h4>Pak Ahmad</h4>
+                            <p>Pengguna</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchTab('login')">Masuk</div>
+                <div class="auth-tab" onclick="switchTab('register')">Daftar</div>
+            </div>
+            
+            <!-- Login Form -->
+            <form class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="form-submit">Masuk</button>
+                
+                <div class="auth-switch">
+                    Belum punya akun? <a href="#" onclick="switchTab('register')">Daftar sekarang</a>
+                </div>
+            </form>
+            
+            <!-- Register Form -->
+            <form class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Nama Lengkap</label>
+                    <input type="text" id="registerName" placeholder="Nama Anda" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" placeholder="••••••••" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Konfirmasi Password</label>
+                    <input type="password" id="confirmPassword" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="form-submit">Daftar</button>
+                
+                <div class="auth-switch">
+                    Sudah punya akun? <a href="#" onclick="switchTab('login')">Masuk</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="product-detail-modal" id="productDetailModal">
+        <div class="product-detail-content">
+            <button class="modal-close" onclick="closeProductDetail()">&times;</button>
+            
+            <div class="product-detail-header">
+                <div>
+                    <h2 class="product-detail-title" id="productTitle">Beras Organik 5kg</h2>
+                    <span class="product-detail-category" id="productCategory">Pertanian</span>
+                </div>
+            </div>
+            
+            <div class="product-detail-body">
+                <div class="product-detail-image" id="productImage">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                
+                <div class="product-detail-info">
+                    <div class="product-detail-description" id="productDescription">
+                        Beras organik hasil panen sendiri, ditanam tanpa menggunakan pestisida kimia. Kualitas premium dengan tekstur pulen dan aroma khas. Sudah melalui proses penggilingan dan penjemuran alami. Cocok untuk konsumsi sehari-hari atau dijual kembali.
+                    </div>
+                    
+                    <div class="product-detail-meta">
+                        <div class="product-detail-meta-item">
+                            <span class="product-detail-meta-label">Kondisi:</span>
+                            <span id="productCondition">Baru</span>
+                        </div>
+                        <div class="product-detail-meta-item">
+                            <span class="product-detail-meta-label">Lokasi:</span>
+                            <span id="productLocation">Kabupaten Bogor, Jawa Barat</span>
+                        </div>
+                        <div class="product-detail-meta-item">
+                            <span class="product-detail-meta-label">Diposting:</span>
+                            <span id="productDate">2 hari yang lalu</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-detail-owner">
+                        <div class="product-detail-owner-avatar" id="ownerAvatar">P</div>
+                        <div class="product-detail-owner-info">
+                            <h4 id="ownerName">Pak Tani</h4>
+                            <p id="ownerStatus">Petani · Bergabung 6 bulan lalu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="barter-options" id="barterOptions">
+                <h4>Barter dengan:</h4>
+                <div class="barter-item">
+                    <div class="barter-item-icon">
+                        <i class="fas fa-carrot"></i>
+                    </div>
+                    <div>
+                        <strong>Sayuran segar</strong>
+                        <p>Wortel, bayam, tomat, dll</p>
+                    </div>
+                </div>
+                <div class="barter-item">
+                    <div class="barter-item-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div>
+                        <strong>Alat pertanian</strong>
+                        <p>Cangkul, sekop, garu</p>
+                    </div>
+                </div>
+                <div class="barter-item">
+                    <div class="barter-item-icon">
+                        <i class="fas fa-shopping-basket"></i>
+                    </div>
+                    <div>
+                        <strong>Sembako</strong>
+                        <p>Minyak goreng, gula, garam</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-detail-actions">
+                <button class="btn-primary" id="btnBarter" onclick="makeOffer()">
+                    <i class="fas fa-exchange-alt"></i> Tawar Barter
+                </button>
+                <button class="btn-secondary" id="btnBuy" onclick="buyProduct()">
+                    <i class="fas fa-shopping-cart"></i> Beli Sekarang
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tentang Ijol-Ijol</h3>
+                    <p>Platform barter online untuk hasil panen pertanian, perikanan, dan perabotan rumah tangga. Bertukar Tanpa Beban.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Menu</h3>
+                    <ul>
+                        <li><a href="#">Beranda</a></li>
+                        <li><a href="#">Kategori</a></li>
+                        <li><a href="#">Cara Barter</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Bantuan</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Hubungi Kami</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Ikuti Kami</h3>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ijol-Ijol. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product Data
+        const products = {
+            1: {
+                id: 1,
+                title: "Beras Organik 5kg",
+                category: "Pertanian",
+                icon: "fas fa-seedling",
+                description: "Beras organik hasil panen sendiri, ditanam tanpa menggunakan pestisida kimia. Kualitas premium dengan tekstur pulen dan aroma khas. Sudah melalui proses penggilingan dan penjemuran alami. Cocok untuk konsumsi sehari-hari atau dijual kembali.",
+                condition: "Baru",
+                location: "Kabupaten Bogor, Jawa Barat",
+                date: "2 hari yang lalu",
+                owner: "Pak Tani",
+                ownerAvatar: "P",
+                ownerStatus: "Petani · Bergabung 6 bulan lalu",
+                type: "barter",
+                barterOptions: [
+                    { icon: "fas fa-carrot", title: "Sayuran segar", desc: "Wortel, bayam, tomat, dll" },
+                    { icon: "fas fa-tools", title: "Alat pertanian", desc: "Cangkul, sekop, garu" },
+                    { icon: "fas fa-shopping-basket", title: "Sembako", desc: "Minyak goreng, gula, garam" }
+                ]
+            },
+            2: {
+                id: 2,
+                title: "Ikan Nila Segar 1kg",
+                category: "Perikanan",
+                icon: "fas fa-fish",
+                description: "Ikan nila segar hasil kolam sendiri, dipelihara dengan pakan alami tanpa bahan kimia. Dijamin segar langsung dari kolam, bisa dipotong sesuai permintaan. Kualitas terjamin dengan daging yang tebal dan tidak berbau lumpur.",
+                condition: "Baru",
+                location: "Kabupaten Purwakarta, Jawa Barat",
+                date: "1 hari yang lalu",
+                owner: "Nelayan",
+                ownerAvatar: "N",
+                ownerStatus: "Peternak Ikan · Bergabung 1 tahun lalu",
+                type: "cash",
+                price: "Rp 50.000",
+                barterOptions: [
+                    { icon: "fas fa-carrot", title: "Sayuran segar", desc: "Kangkung, bayam, sawi" },
+                    { icon: "fas fa-seedling", title: "Beras", desc: "Beras putih atau merah" },
+                    { icon: "fas fa-utensils", title: "Bumbu dapur", desc: "Bawang, cabai, kemiri" }
+                ]
+            },
+            3: {
+                id: 3,
+                title: "Cangkul Sekop",
+                category: "Alat Tanam",
+                icon: "fas fa-tools",
+                description: "Cangkul sekop kondisi 90%, masih sangat layak pakai. Gagang kayu jati yang kuat dan mata cangkul baja yang masih tajam. Jarang digunakan karena sudah punya alat baru. Cocok untuk berkebun atau pertanian skala kecil.",
+                condition: "Bekas (90%)",
+                location: "Kota Depok, Jawa Barat",
+                date: "3 hari yang lalu",
+                owner: "Gardener",
+                ownerAvatar: "G",
+                ownerStatus: "Pecinta Tanaman · Bergabung 8 bulan lalu",
+                type: "barter",
+                barterOptions: [
+                    { icon: "fas fa-seedling", title: "Bibit tanaman", desc: "Tomat, cabai, terong" },
+                    { icon: "fas fa-leaf", title: "Pupuk organik", desc: "Kompos, pupuk kandang" },
+                    { icon: "fas fa-tint", title: "Pestisida alami", desc: "Neem oil, dll" }
+                ]
+            },
+            4: {
+                id: 4,
+                title: "Sofa Minimalis 2 Seater",
+                category: "Rumah Tangga",
+                icon: "fas fa-home",
+                description: "Sofa minimalis 2 seater warna abu-abu, bahan fabric yang mudah dibersihkan. Kondisi masih bagus, tidak ada noda atau sobek. Cocok untuk apartemen atau rumah dengan ruang tamu kecil. Alasan dijual karena ingin ganti model baru.",
+                condition: "Bekas (85%)",
+                location: "Kota Bekasi, Jawa Barat",
+                date: "5 hari yang lalu",
+                owner: "Home",
+                ownerAvatar: "H",
+                ownerStatus: "Ibu Rumah Tangga · Bergabung 3 bulan lalu",
+                type: "cash",
+                price: "Rp 75.000",
+                barterOptions: [
+                    { icon: "fas fa-couch", title: "Perabot lain", desc: "Meja, kursi, lemari" },
+                    { icon: "fas fa-tv", title: "Elektronik", desc: "TV, kipas angin" },
+                    { icon: "fas fa-blender", title: "Alat dapur", desc: "Blender, rice cooker" }
+                ]
+            },
+            5: {
+                id: 5,
+                title: "Kopi Arabika 1kg",
+                category: "Hasil Bumi",
+                icon: "fas fa-leaf",
+                description: "Kopi arabika hasil kebun sendiri, ditanam di lereng pegunungan dengan ketinggian 1200 mdpl. Sudah melalui proses fermentasi dan sangrai yang sempurna. Memiliki cita rasa asam buah yang seimbang dengan aftertaste yang panjang.",
+                condition: "Baru",
+                location: "Kabupaten Bandung, Jawa Barat",
+                date: "1 minggu yang lalu",
+                owner: "Farmer",
+                ownerAvatar: "F",
+                ownerStatus: "Petani Kopi · Bergabung 2 tahun lalu",
+                type: "barter",
+                barterOptions: [
+                    { icon: "fas fa-cube", title: "Gula", desc: "Gula aren atau gula pasir" },
+                    { icon: "fas fa-bread-slice", title: "Makanan", desc: "Roti, kue, snack" },
+                    { icon: "fas fa-shopping-basket", title: "Sembako", desc: "Minyak, telur, tepung" }
+                ]
+            },
+            6: {
+                id: 6,
+                title: "Pisang Raja 1 Sisir",
+                category: "Buah-buahan",
+                icon: "fas fa-apple-alt",
+                description: "Pisang raja manis segar langsung dari kebun, dipetik saat sudah matang sempurna di pohon. Memiliki daging yang tebal, manis alami tanpa bahan pengawet. Cocok untuk langsung dimakan atau diolah menjadi berbagai makanan.",
+                condition: "Baru",
+                location: "Kabupaten Sukabumi, Jawa Barat",
+                date: "Hari ini",
+                owner: "Kebun",
+                ownerAvatar: "K",
+                ownerStatus: "Pemilik Kebun · Bergabung 4 bulan lalu",
+                type: "cash",
+                price: "Rp 30.000",
+                barterOptions: [
+                    { icon: "fas fa-apple-alt", title: "Buah lain", desc: "Mangga, jambu, jeruk" },
+                    { icon: "fas fa-carrot", title: "Sayuran", desc: "Wortel, kentang, kol" },
+                    { icon: "fas fa-egg", title: "Protein", desc: "Telur, tahu, tempe" }
+                ]
+            },
+            7: {
+                id: 7,
+                title: "Wortel Segar 1kg",
+                category: "Sayuran",
+                icon: "fas fa-carrot",
+                description: "Wortel segar hasil panen sendiri, ditanam secara organik tanpa pestisida. Warna oranye cerah dengan tekstur renyah. Cocok untuk masakan sehari-hari atau dijadikan jus. Kualitas terjamin dan masih segar.",
+                condition: "Baru",
+                location: "Kabupaten Cianjur, Jawa Barat",
+                date: "Hari ini",
+                owner: "Sayur",
+                ownerAvatar: "S",
+                ownerStatus: "Petani Sayur · Bergabung 5 bulan lalu",
+                type: "barter",
+                barterOptions: [
+                    { icon: "fas fa-seedling", title: "Beras", desc: "Beras putih atau merah" },
+                    { icon: "fas fa-fish", title: "Ikan", desc: "Ikan segar atau asin" },
+                    { icon: "fas fa-shopping-basket", title: "Sembako", desc: "Minyak, gula, garam" }
+                ]
+            },
+            8: {
+                id: 8,
+                title: "Lemari Buku Kayu Jati",
+                category: "Rumah Tangga",
+                icon: "fas fa-home",
+                description: "Lemari buku kayu jati asli, finishing natural. Kondisi masih sangat bagus, tidak ada keropos atau rusak. Alasan dijual karena ruangan sudah penuh. Cocok untuk menyimpan buku atau pajangan.",
+                condition: "Bekas (95%)",
+                location: "Kota Bogor, Jawa Barat",
+                date: "1 minggu yang lalu",
+                owner: "Book",
+                ownerAvatar: "B",
+                ownerStatus: "Pecinta Buku · Bergabung 1 tahun lalu",
+                type: "barter",
+                barterOptions: [
+                    { icon: "fas fa-book", title: "Buku", desc: "Novel, komik, ensiklopedia" },
+                    { icon: "fas fa-laptop", title: "Elektronik", desc: "Laptop, tablet, HP" },
+                    { icon: "fas fa-tshirt", title: "Fashion", desc: "Baju, celana, jaket" }
+                ]
+            }
+        };
+
+        // Current filter state
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Initialize products on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts(products);
+        });
+
+        // Display products function
+        function displayProducts(productsToShow) {
+            const itemsGrid = document.getElementById('itemsGrid');
+            const noResults = document.getElementById('noResults');
+            
+            // Clear current products
+            itemsGrid.innerHTML = '';
+            
+            // Check if there are products to show
+            if (Object.keys(productsToShow).length === 0) {
+                noResults.style.display = 'block';
+                return;
+            } else {
+                noResults.style.display = 'none';
+            }
+            
+            // Create product cards
+            Object.values(productsToShow).forEach(product => {
+                const productCard = createProductCard(product);
+                itemsGrid.appendChild(productCard);
+            });
+        }
+
+        // Create product card HTML
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'item-card';
+            card.onclick = () => showProductDetail(product.id);
+            
+            let priceOrBarter = '';
+            if (product.type === 'cash') {
+                priceOrBarter = `<div class="item-price">${product.price}</div>`;
+            } else {
+                priceOrBarter = `<div class="item-barter">Barter</div>`;
+            }
+            
+            card.innerHTML = `
+                ${priceOrBarter}
+                <div class="item-image">
+                    <i class="${product.icon}"></i>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">${product.title}</h3>
+                    <p class="item-description">${product.description}</p>
+                    <div class="item-meta">
+                        <div class="item-owner">
+                            <div class="owner-avatar">${product.ownerAvatar}</div>
+                            <span>${product.owner}</span>
+                        </div>
+                        <span class="item-category">${product.category}</span>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Search products function
+        function searchProducts(event) {
+            // If called from button click, event might be undefined
+            if (event && event.type === 'keyup' && event.key !== 'Enter') {
+                return;
+            }
+            
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            currentSearch = searchTerm;
+            
+            // Update title
+            const itemsTitle = document.getElementById('itemsTitle');
+            if (searchTerm) {
+                itemsTitle.textContent = `Hasil Pencarian: "${searchTerm}"`;
+            } else {
+                itemsTitle.textContent = 'Produk Unggulan';
+            }
+            
+            // Filter products
+            let filteredProducts = filterProducts();
+            displayProducts(filteredProducts);
+        }
+
+        // Filter by category function
+        function filterByCategory(category) {
+            currentFilter = category;
+            currentSearch = '';
+            
+            // Update search input
+            document.getElementById('searchInput').value = '';
+            
+            // Update title
+            const itemsTitle = document.getElementById('itemsTitle');
+            itemsTitle.textContent = `Kategori: ${category}`;
+            
+            // Update filter buttons
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === category) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Filter and display products
+            let filteredProducts = filterProducts();
+            displayProducts(filteredProducts);
+        }
+
+        // Reset filter function
+        function resetFilter() {
+            currentFilter = 'all';
+            currentSearch = '';
+            
+            // Update search input
+            document.getElementById('searchInput').value = '';
+            
+            // Update title
+            const itemsTitle = document.getElementById('itemsTitle');
+            itemsTitle.textContent = 'Produk Unggulan';
+            
+            // Update filter buttons
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === 'Semua') {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Display all products
+            displayProducts(products);
+        }
+
+        // Filter products based on current state
+        function filterProducts() {
+            let filtered = {...products};
+            
+            // Apply category filter
+            if (currentFilter !== 'all') {
+                filtered = Object.fromEntries(
+                    Object.entries(filtered).filter(([key, product]) => 
+                        product.category === currentFilter
+                    )
+                );
+            }
+            
+            // Apply search filter
+            if (currentSearch) {
+                filtered = Object.fromEntries(
+                    Object.entries(filtered).filter(([key, product]) => 
+                        product.title.toLowerCase().includes(currentSearch) ||
+                        product.description.toLowerCase().includes(currentSearch) ||
+                        product.category.toLowerCase().includes(currentSearch)
+                    )
+                );
+            }
+            
+            return filtered;
+        }
+
+        // Modal Functions
+        function openModal() {
+            document.getElementById('authModal').classList.add('active');
+        }
+        
+        function closeModal() {
+            document.getElementById('authModal').classList.remove('active');
+        }
+        
+        // Product Detail Functions
+        function showProductDetail(productId) {
+            const product = products[productId];
+            
+            // Update product detail content
+            document.getElementById('productTitle').textContent = product.title;
+            document.getElementById('productCategory').textContent = product.category;
+            document.getElementById('productDescription').textContent = product.description;
+            document.getElementById('productCondition').textContent = product.condition;
+            document.getElementById('productLocation').textContent = product.location;
+            document.getElementById('productDate').textContent = product.date;
+            document.getElementById('ownerName').textContent = product.owner;
+            document.getElementById('ownerAvatar').textContent = product.ownerAvatar;
+            document.getElementById('ownerStatus').textContent = product.ownerStatus;
+            
+            // Update product image
+            const productImage = document.getElementById('productImage');
+            productImage.innerHTML = `<i class="${product.icon}"></i>`;
+            
+            // Update barter options
+            const barterOptions = document.getElementById('barterOptions');
+            let barterHTML = '<h4>Barter dengan:</h4>';
+            
+            product.barterOptions.forEach(option => {
+                barterHTML += `
+                    <div class="barter-item">
+                        <div class="barter-item-icon">
+                            <i class="${option.icon}"></i>
+                        </div>
+                        <div>
+                            <strong>${option.title}</strong>
+                            <p>${option.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            barterOptions.innerHTML = barterHTML;
+            
+            // Update buttons based on product type
+            const btnBarter = document.getElementById('btnBarter');
+            const btnBuy = document.getElementById('btnBuy');
+            
+            if (product.type === 'barter') {
+                btnBarter.style.display = 'flex';
+                btnBuy.style.display = 'none';
+            } else {
+                btnBarter.style.display = 'none';
+                btnBuy.style.display = 'flex';
+                btnBuy.innerHTML = `<i class="fas fa-shopping-cart"></i> Beli Sekarang - ${product.price}`;
+            }
+            
+            // Show modal
+            document.getElementById('productDetailModal').classList.add('active');
+        }
+        
+        function closeProductDetail() {
+            document.getElementById('productDetailModal').classList.remove('active');
+        }
+        
+        function makeOffer() {
+            alert('Fitur tawar barter akan segera hadir! (Ini hanya prototype)');
+        }
+        
+        function buyProduct() {
+            alert('Fitur pembelian akan segera hadir! (Ini hanya prototype)');
+        }
+        
+        // Tab Switching
+        function switchTab(tab) {
+            // Update tab buttons
+            const tabs = document.querySelectorAll('.auth-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            if (tab === 'login') {
+                tabs[0].classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+                document.getElementById('registerForm').classList.remove('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+                document.getElementById('loginForm').classList.remove('active');
+            }
+        }
+        
+        // Form Submissions
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Login berhasil! (Ini hanya prototype)');
+            closeModal();
+        });
+        
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Password tidak cocok!');
+                return;
+            }
+            
+            alert('Registrasi berhasil! (Ini hanya prototype)');
+            closeModal();
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const authModal = document.getElementById('authModal');
+            const productModal = document.getElementById('productDetailModal');
+            
+            if (e.target === authModal) {
+                closeModal();
+            }
+            
+            if (e.target === productModal) {
+                closeProductDetail();
+            }
+        });
+    </script>
+</body>
+</html>
